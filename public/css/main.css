@@ -1,0 +1,144 @@
+.w100Title
+{
+width: 100vw ;
+height: 120px;
+border: 3px solid black;
+float: left;
+margin:auto;
+}
+.w100
+{
+width: 100vw ;
+height: 1000px;
+border: 3px solid black;
+float: left;
+margin:auto;
+}
+
+.w50l
+{
+width: 49.5vw ;
+height: 1000px;
+display: inline-block;
+border: 3px solid black;
+margin:auto;
+}
+
+.w50r
+{
+width: 49.5vw ;
+height: 1000px;
+display: inline-block;
+border: 3px solid black;
+float: right;
+margin:auto;
+}
+
+svg {fill:black; float:left ; display:block;}
+
+
+
+
+/* force layout gt */
+
+.links_gt line {
+  stroke: #999;
+  stroke-opacity: 1;
+  stroke-width: 5 ;
+}
+
+.nodes_gt circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+/* force layout ss */
+
+.links_ss line {
+  stroke: #999;
+  stroke-opacity: 1;
+  stroke-width: 5 ;
+}
+
+.nodes_ss circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+
+
+
+
+.d3-tip {
+  line-height: 1;
+  padding: 6px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips specifically */
+.d3-tip.n:after {
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+
+a{font-size: 20px;}
+
+
+/* visited link */
+a:visited {
+    
+    color: green;
+}
+
+
+
+/* selected link */
+a:active {
+    color: blue;
+}
+
+
+
+.folderName{font-size: 25px;}
+
+#hiDiv{
+  font-size: 16px;
+  margin:10px 5px 0 10px;
+  display:block;
+  color:rgba(0, 0, 255, 1);
+
+}
+
+#lowDiv{
+  font-size: 16px;
+  margin:10px 5px 0 10px;
+  display:block;
+  color:rgba(255, 0, 0, 1);
+
+}
+
+
+#svg2{
+  background: rgba(0, 0, 70, 0.1);
+  display:block;
+  background: rgba(0, 0, 0, 1);
+}
+

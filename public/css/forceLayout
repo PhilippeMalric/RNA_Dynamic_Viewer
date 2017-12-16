@@ -1,0 +1,182 @@
+var svg2D = d3.select("#ARN_svg"),
+    width = +$( window ).width(),
+    height = +svg2D.attr("height");
+
+
+var ntTab = ['A','U','C','G']
+
+function colores_google(n) {
+  var colores_g = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
+  return colores_g[n % colores_g.length];
+}
+
+
+colorConverter = {}
+
+colorConverter['A'] = colores_google(0);
+colorConverter['C'] = colores_google(1);
+colorConverter['G'] = colores_google(2);
+colorConverter['U'] = colores_google(3);
+    
+    
+var conformation_i = 0
+    
+graph = {}
+graph.nodes = data.RNAinfo
+graph.links = data.RNAlink
+
+for (node in graph.nodes)
+{
+    graph.nodes[node].x = (Math.sin(node/2)*node/2)*10 + width/2
+    graph.nodes[node].y = (Math.cos(node/2)*node/2)*10 + height/2
+    console.log(node + " : "+ graph.nodes[node].x)
+}
+
+
+
+
+var circleRadius = 100;
+
+
+force2D = d3.forceSimulation()
+            .force("link", d3.forceLink().id(function(d,i) {
+                return i;
+            }).distance(50))
+            .force("charge", d3.forceManyBody().strength(-10 ))
+            .force("center", d3.forceCenter(width / 2,height / 2))
+                .stop();
+
+
+var link2D = svg2D.append('g')
+            .attr('class','link2D')
+            .selectAll("line")
+            .data(graph.links)
+            .enter()
+            .append("line");
+
+
+
+var node2D = svg2D.append('g')
+            .attr('class','node2Dg')
+            .selectAll('circle')
+            .data(graph.nodes)
+            .enter()
+            .append("circle")
+                .attr("class","node2D")
+            .attr("r", circleRadius)
+                .attr("cx", function(d,i){return (Math.sin(i/2)*i/2)*10  -7 + width/2})
+                .attr("cy", function(d,i) {return (Math.cos(i/2)*i/2)*10 +7 + height/2})
+            .attr('fill',"black")
+            .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+
+var text = svg2D.selectAll("text")
+                        .data(graph.nodes)
+                        .enter()
+                        .append("text")
+                                .attr("id","labelNt");
+var textLabels = text
+                .attr("x", function(d,i){return (Math.sin(i/2)*i/2)*10  -7 + width/2  - 5})
+                .attr("y", function(d,i) {return (Math.cos(i/2)*i/2)*10 +7 + height/2 + 5})
+                .text( function (d) { return d.id; })
+                .attr("font-family", "sans-serif")
+                 .attr("font-size", "20px")
+                 .attr("fill", "white");
+
+
+
+
+node2D.append("title")
+                  .text(function(d)
+                     { return d.sequence; });
+
+
+
+ force2D
+            .nodes(graph.nodes)
+            .on("tick", ticked);
+            
+ force2D
+            .force("link")
+            .links(graph.links);
+ force2D.restart()  
+
+          
+link2D.filter(function(d){return d.value == 0})
+        .attr("x1", function (d) {
+            var xPos = d.source.x;
+            if (xPos < 0) return 0;
+            if (xPos > (width - circleRadius)) return (width - circleRadius);
+            return xPos;
+        })
+        .attr("y1", function (d) {
+            var yPos = d.source.y;
+            if (yPos < 0) return 0;
+            if (yPos > (height - circleRadius)) return (height - circleRadius);
+            return yPos;
+        })
+        .attr("x2", function (d) {
+            var xPos = d.target.x;
+            if (xPos < 0) return 0;
+            if (xPos > (width - circleRadius)) return (width - circleRadius);
+            return xPos;
+        })
+        .attr("y2", function (d) {
+            var yPos = d.target.y;
+            if (yPos < 0) return 0;
+            if (yPos > (height - circleRadius)) return (height - circleRadius);
+            return yPos;
+        });
+
+
+function ticked() {
+link2D
+        .attr("x1", function (d) {
+            var xPos = d.source.x;
+            if (xPos < 0) return 0;
+            if (xPos > (width - circleRadius)) return (width - circleRadius);
+            return xPos;
+        })
+        .attr("y1", function (d) {
+            var yPos = d.source.y;
+            if (yPos < 0) return 0;
+            if (yPos > (height - circleRadius)) return (height - circleRadius);
+            return yPos;
+        })
+        .attr("x2", function (d) {
+            var xPos = d.target.x;
+            if (xPos < 0) return 0;
+            if (xPos > (width - circleRadius)) return (width - circleRadius);
+            return xPos;
+        })
+        .attr("y2", function (d) {
+            var yPos = d.target.y;
+            if (yPos < 0) return 0;
+            if (yPos > (height - circleRadius)) return (height - circleRadius);
+            return yPos;
+        });
+
+node2D
+        .attr("cx", function (d) {
+            var xPos = d.x;
+            if (xPos < 0) return 0;
+            if (xPos > (width - circleRadius)) return (width - circleRadius);
+            return xPos;
+        })
+        .attr("cy", function (d) {
+            var yPos = d.y;
+            if (yPos < 0) return 0;
+            if (yPos > (height - circleRadius)) return (height - circleRadius);
+            return yPos;
+        });
+
+
+text
+        .attr("x", function(d,i){return graph.nodes[i].x - 5})
+        .attr("y", function(d,i) {return graph.nodes[i].y + 5})
+
+
+
+}

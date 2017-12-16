@@ -1,0 +1,68 @@
+.w100Title
+{
+width: 100vw ;
+height: 120px;
+border: 3px solid black;
+float: left;
+margin:auto;
+}
+.w100
+{
+width: 100vw ;
+height: 1000px;
+border: 3px solid black;
+float: left;
+margin:auto;
+}
+
+.w50l
+{
+width: 49.5vw ;
+height: 1000px;
+display: inline-block;
+border: 3px solid black;
+margin:auto;
+}
+
+.w50r
+{
+width: 49.5vw ;
+height: 1000px;
+display: inline-block;
+border: 3px solid black;
+float: right;
+margin:auto;
+}
+
+svg {fill:black; float:left ; display:block;}
+
+
+/* force layout RNA */
+
+.links_RNA line {
+  stroke: #999;
+  stroke-opacity: 1;
+  stroke-width: 5 ;
+}
+
+.nodes_RNA circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+/* force layout gt */
+
+.links_gt line {
+  stroke: #999;
+  stroke-opacity: 1;
+  stroke-width: 5 ;
+}
+
+.nodes_gt circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+
+
+
